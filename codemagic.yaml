@@ -8,11 +8,11 @@ workflows:
       android_signing:
         - plantify_keystore
       groups:
-        - keystore_credentials   # akan kamu buat di Codemagic
-      cache:
-        cache_paths:
-          - ~/.gradle
-          - ~/.npm
+        - keystore_credentials   # buat di Codemagic jika kamu pakai signing
+    cache:
+      cache_paths:
+        - ~/.gradle
+        - ~/.npm
     scripts:
       - name: Set Android SDK path
         script: |
