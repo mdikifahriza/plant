@@ -24,7 +24,11 @@ workflows:
         script: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleRelease
+          ./gradlew assembleRelease \
+            -Pandroid.injected.signing.store.file="" \
+            -Pandroid.injected.signing.store.password="" \
+            -Pandroid.injected.signing.key.alias="" \
+            -Pandroid.injected.signing.key.password=""
 
     artifacts:
       - android/app/build/outputs/**/*.apk
