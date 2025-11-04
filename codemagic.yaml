@@ -1,31 +1,29 @@
 workflows:
-  plantify-android:
-    name: Build Plantify APK
+  build-plantify-apk:
+    name: Build Plantify APK (Unsigned)
     max_build_duration: 60
     environment:
       vars:
         NODE_VERSION: 18
-      android_signing:
-        - plantify_keystore
-      groups:
-        - keystore_credentials   # buat di Codemagic jika kamu pakai signing
+
     cache:
       cache_paths:
         - ~/.gradle
         - ~/.npm
+
     scripts:
       - name: Set Android SDK path
         script: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/android/local.properties"
+
       - name: Install dependencies
         script: |
           npm install
-      - name: Build release APK
+
+      - name: Build unsigned release APK
         script: |
-          cd android && ./gradlew assembleRelease
+          cd android
+          ./gradlew assembleRelease
+
     artifacts:
       - android/app/build/outputs/**/*.apk
-    publishing:
-      email:
-        recipients:
-          - your@email.com
