@@ -24,11 +24,13 @@ workflows:
         script: |
           cd android
           chmod +x gradlew
+          # Buat dummy keystore kosong supaya Gradle gak error
+          echo "dummy" > dummy.keystore
           ./gradlew assembleRelease \
-            -Pandroid.injected.signing.store.file="" \
-            -Pandroid.injected.signing.store.password="" \
-            -Pandroid.injected.signing.key.alias="" \
-            -Pandroid.injected.signing.key.password=""
+            -Pandroid.injected.signing.store.file="$(pwd)/dummy.keystore" \
+            -Pandroid.injected.signing.store.password="none" \
+            -Pandroid.injected.signing.key.alias="none" \
+            -Pandroid.injected.signing.key.password="none"
 
     artifacts:
       - android/app/build/outputs/**/*.apk
